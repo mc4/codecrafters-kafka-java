@@ -23,7 +23,7 @@ public class Main {
 			clientSocket = serverSocket.accept();
 			OutputStream outputStream = clientSocket.getOutputStream();
 			outputStream.write(new byte[] {0, 0, 0, 0});
-			outputStream.write(new byte[] {0, 1, 2, 3});
+			outputStream.write(new byte[] {0, 0, 0, 7});
 		} catch (IOException e) {
 			System.out.println("IOException: " + e.getMessage());
 		} finally {
