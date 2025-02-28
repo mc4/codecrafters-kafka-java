@@ -32,7 +32,7 @@ public class Main {
 			if ((byteRead = inputStream.read(buffer)) != -1) {
 				byte[] output = new byte[] { 0, 0, 0, 0, 0, 0, 0, 0 };
 				System.arraycopy(buffer, 8, output, 4, 4);
-				System.err.println("request: "+buffer.toString());
+				System.err.println("request: " + buffer.toString());
 				outputStream.write(output);
 			} else {
 				System.err.println("Nothing to read from input stream");
