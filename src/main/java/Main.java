@@ -18,7 +18,7 @@ public class Main {
 		int port = 9092;
 		try {
 			serverSocket = new ServerSocket(port);
-			
+
 			// Since the tester restarts your program quite often, setting SO_REUSEADDR
 			// ensures that we don't run into 'Address already in use' errors
 			serverSocket.setReuseAddress(true);
@@ -29,14 +29,12 @@ public class Main {
 			BufferedReader reader = new BufferedReader(new InputStreamReader(clientSocket.getInputStream()));
 			String line;
 			while ((line = reader.readLine()) != null && !line.isEmpty()) {
-				System.err.println(line); // Print each header line
+				System.err.println("******* "+line); // Print each header line
+//				OutputStream outputStream = clientSocket.getOutputStream();
+//				outputStream.write(new byte[] { 0, 0, 0, 7 });
+//				outputStream.write(new byte[] { 0, 0, 0, 0 });
 			}
-			
-			
-//			OutputStream outputStream = clientSocket.getOutputStream();
-//			outputStream.write(new byte[] {0, 0, 0, 0});
-//			outputStream.write(new byte[] {0, 0, 0, 7});
-			
+
 		} catch (IOException e) {
 			System.out.println("IOException: " + e.getMessage());
 		} finally {
