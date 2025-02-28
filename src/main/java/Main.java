@@ -32,8 +32,8 @@ public class Main {
 				System.err.println("******* "+line); // Print each header line
 			}
 			OutputStream outputStream = clientSocket.getOutputStream();
-			outputStream.write(new byte[] { 0, 0, 0, 7 });
 			outputStream.write(new byte[] { 0, 0, 0, 0 });
+			outputStream.write(new byte[] { 0, 0, 0, 7 });
 
 		} catch (IOException e) {
 			System.out.println("IOException: " + e.getMessage());
