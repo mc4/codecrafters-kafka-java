@@ -1,4 +1,7 @@
+import java.io.BufferedReader;
 import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
 import java.io.OutputStream;
 import java.net.ServerSocket;
 import java.net.Socket;
@@ -9,21 +12,31 @@ public class Main {
 		// when running tests.
 		System.err.println("Logs from your program will appear here!");
 
-		// Uncomment this block to pass the first stage
-
+//		-- YOUR CODE HERE --		//
 		ServerSocket serverSocket = null;
 		Socket clientSocket = null;
 		int port = 9092;
 		try {
 			serverSocket = new ServerSocket(port);
+			
 			// Since the tester restarts your program quite often, setting SO_REUSEADDR
 			// ensures that we don't run into 'Address already in use' errors
 			serverSocket.setReuseAddress(true);
+
 			// Wait for connection from client.
 			clientSocket = serverSocket.accept();
-			OutputStream outputStream = clientSocket.getOutputStream();
-			outputStream.write(new byte[] {0, 0, 0, 0});
-			outputStream.write(new byte[] {0, 0, 0, 7});
+
+			BufferedReader reader = new BufferedReader(new InputStreamReader(clientSocket.getInputStream()));
+			String line;
+			while ((line = reader.readLine()) != null && !line.isEmpty()) {
+				System.err.println(line); // Print each header line
+			}
+			
+			
+//			OutputStream outputStream = clientSocket.getOutputStream();
+//			outputStream.write(new byte[] {0, 0, 0, 0});
+//			outputStream.write(new byte[] {0, 0, 0, 7});
+			
 		} catch (IOException e) {
 			System.out.println("IOException: " + e.getMessage());
 		} finally {
@@ -32,7 +45,7 @@ public class Main {
 					clientSocket.close();
 				}
 			} catch (IOException e) {
-				System.out.println("IOException: " + e.getMessage());
+				System.err.println("IOException: " + e.getMessage());
 			}
 		}
 	}
