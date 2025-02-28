@@ -30,10 +30,10 @@ public class Main {
 			String line;
 			while ((line = reader.readLine()) != null && !line.isEmpty()) {
 				System.err.println("******* "+line); // Print each header line
-//				OutputStream outputStream = clientSocket.getOutputStream();
-//				outputStream.write(new byte[] { 0, 0, 0, 7 });
-//				outputStream.write(new byte[] { 0, 0, 0, 0 });
 			}
+			OutputStream outputStream = clientSocket.getOutputStream();
+			outputStream.write(new byte[] { 0, 0, 0, 7 });
+			outputStream.write(new byte[] { 0, 0, 0, 0 });
 
 		} catch (IOException e) {
 			System.out.println("IOException: " + e.getMessage());
