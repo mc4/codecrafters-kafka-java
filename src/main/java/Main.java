@@ -1,7 +1,5 @@
-import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
-import java.io.InputStreamReader;
 import java.io.OutputStream;
 import java.net.ServerSocket;
 import java.net.Socket;
@@ -26,14 +24,19 @@ public class Main {
 			// Wait for connection from client.
 			clientSocket = serverSocket.accept();
 
-			BufferedReader reader = new BufferedReader(new InputStreamReader(clientSocket.getInputStream()));
-			String line;
-			while ((line = reader.readLine()) != null && !line.isEmpty()) {
-				System.err.println("******* "+line); // Print each header line
-			}
+			InputStream inputStream = clientSocket.getInputStream();
 			OutputStream outputStream = clientSocket.getOutputStream();
-			outputStream.write(new byte[] { 0, 0, 0, 0 });
-			outputStream.write(new byte[] { 0, 0, 0, 7 });
+			byte[] buffer = new byte[1024];
+			int byteRead;
+
+			if ((byteRead = inputStream.read(buffer)) != -1) {
+				byte[] output = new byte[] { 0, 0, 0, 0, 0, 0, 0, 0 };
+				System.arraycopy(buffer, 8, output, 4, 4);
+				System.err.println("response: "+output);
+				outputStream.write(output);
+			} else {
+				System.err.println("Nothing to read from input stream");
+			}
 
 		} catch (IOException e) {
 			System.out.println("IOException: " + e.getMessage());
