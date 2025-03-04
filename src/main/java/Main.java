@@ -33,6 +33,7 @@ public class Main {
 				byte[] output = new byte[] { 0, 0, 0, 0, 0, 0, 0, 0 };
 				System.arraycopy(buffer, 8, output, 4, 4);
 				System.err.println("request: " + buffer.toString());
+				System.err.println("request: " + output.toString());
 				outputStream.write(output);
 			} else {
 				System.err.println("Nothing to read from input stream");
